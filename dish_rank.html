@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/header.css">
+    <title>菜品排名</title>
+    <style>
+        body{margin:0;padding:0;}
+        .container{width:90%;height:300px;margin:80px auto;}
+        .dish{width:100%;height:110px;margin-bottom:30px;}
+        .dish .left,.dish .right{float:left;}
+        .dish .left{width:36%;height:110px;background: url('img/') #eee;position: relative;margin-right:4%;}
+        .top{width:22px;height:20px;line-height:20px;text-align: center;background: rgb(255, 152, 0);color:#fff;position: absolute;top:0;left:0;}
+        .bottom{width:100%;height:30px;line-height:30px;text-align: center;position:absolute;bottom:0;background: rgba(255,255,255,.5)}
+        .date{margin:0;color:#999;font-size:12px}
+        .dish .right{width:60%}
+        .title,.score{margin:10px 0}
+        .fa{font-size: 20px;}
+        .score span:first-child{color:#e51c23;font-weight: bold;}
+        .first,.sed,.third{height:21px;line-height:21px;text-align: center;color:#fff;background: #0095DE;font-size:10px;padding:3px;border-radius: 5px;}
+        .sed{background: #ff9800}
+        .third{background: #259b24}
+        .zan{cursor: pointer}
+        .active{color:#e51c23}
+    </style>
+</head>
+<body>
+    <div class="head">
+        <a href="javascript:;" onclick="javascript :history.back(-1);" class="fa fa-angle-left"></a>
+        <span>菜品排名</span>
+    </div>
+    <div class="container">
+        <div class="dish">
+            <div class="left">
+                <div class="top">1</div>
+                <div class="bottom">08219</div>
+            </div>
+            <div class="right">
+                <p class="date">出菜时间：2017/12/04 10:30</p>
+                <p class="title">燕黄珍品灌汤狮子头</p>
+                <span class="zan"><i class="fa fa-thumbs-o-up"></i>&nbsp;<span class="count">55</span></span>
+                <p class="score">
+                    <span>75.50</span>
+                    <span class="first">75.50</span>
+                    <span class="sed">75.40</span>
+                    <span class="third">75.60</span>
+                </p>
+            </div>
+        </div>
+        <div class="dish">
+            <div class="left">
+                <div class="top">2</div>
+                <div class="bottom">08219</div>
+            </div>
+            <div class="right">
+                <p class="date">出菜时间：2017/12/04 10:30</p>
+                <p class="title">燕黄珍品灌汤狮子头</p>
+                <span class="zan"><i class="fa fa-thumbs-o-up"></i>&nbsp;<span class="count">55</span></span>
+                <p class="score">
+                    <span>75.50</span>
+                    <span class="first">75.50</span>
+                    <span class="sed">75.40</span>
+                    <span class="third">75.60</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        $('.zan').click(function(){
+            
+            $(this).toggleClass('active');
+            var classname=$(this).attr("class");
+            var zan_num=parseInt($(this).text());
+            if(classname == "zan active"){
+                zan_num +=1;
+                $('span',this).text(zan_num);	
+            }else if(classname== "zan"){
+                zan_num -=1;
+                $('span',this).text(zan_num);
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/header.css">
+    <!-- <link rel="stylesheet" href="css/footer.css"> -->
+    <title>厨艺大赛智慧评分系统</title>
+    <style>
+        body{margin:0;padding: 0;}
+        .info{width:100%;height:105px;background:#0095DE;color:#fff ;margin-top:50px;padding:0 20px;box-sizing: border-box }
+        .info img{width:60px;height:60px;border-radius: 50%;display:inline-block;margin-top:23px;float:left;}
+        .info span{font-size:18px;display: inline-block;height:105px;line-height:105px;float:left;}
+        .info .team{float:right;display: inline-block;height:105px;line-height:105px;}
+        a,a:hover{color:#fff;text-decoration: none;}
+        .order{width:100%;border-bottom:3px solid #ebeced}
+        .z_photo {
+            width: 90%;
+            padding: 0.3rem;
+            overflow: auto;
+            clear: both;
+            margin: 20px auto;
+            border: 1px solid #eee;
+            box-sizing: border-box
+        }
+        
+        .z_photo img {
+            width: 140px;
+            height: 100px;
+        }
+        
+        .z_addImg {
+            /* float: left; */
+            width:140px;
+            height:100px;
+            margin: 0px auto;
+        }
+        
+        .z_file {
+            width: 1rem;
+            height: 1rem;
+            background: url(img/z_add.png) no-repeat;
+            background-size: 100% 100%;
+            margin: 0 auto;
+        }
+        #file{
+        	opacity:0;width:1rem;height:1rem;clip:rect(1px,1px,1px,1px);
+        }
+        .z_file input::-webkit-file-upload-button {
+            width: 1rem;
+            height: 1rem;
+            border: none;
+            position: absolute;
+            outline: 0;
+            opacity: 0;
+        }
+        
+        .z_file input#file {
+            display: block;
+            width: 100px;
+            border: 0;
+            vertical-align: middle;
+        }
+        /*遮罩层*/
+        
+        .z_mask {
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            display: none;
+        }
+        
+        .z_alert {
+            width: 3rem;
+            height: 2rem;
+            border-radius: .2rem;
+            background: #fff;
+            font-size: .24rem;
+            text-align: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-left: -1.5rem;
+            margin-top: -2rem;
+        }
+        
+        .z_alert p:nth-child(1) {
+            line-height: 1.5rem;
+        }
+        .z_alert p:nth-child(2) span {
+            display: inline-block;
+            width: 49%;
+            height: .5rem;
+            line-height: .5rem;
+            float: left;
+            border-top: 1px solid #ddd;
+        }
+        
+        .z_cancel {
+            border-right: 1px solid #ddd;
+        }
+        form>input,form>select{width:90%;height:50px;border-radius:5px;border:none;border:1px solid #eee;display:block;margin:20px auto;box-sizing: border-box;padding:0 10px;}
+        form>.sel1,form>.sel2{width:42%;float:left;margin-left:5%;margin-top:0}
+        form>.sel2{float:right;margin-right:5%}
+        .sub{color: #fff;background: #0095DE;font-size:18px;}
+        .container{width:90%;margin:0px auto 50px;}
+        .list{width:100%;height:130px;border-bottom:1px solid #eee;margin-top:20px;}
+        .left{width:35%;height:110px;background:#eee;float:left;margin-right:5%;position:relative}
+        .right{width:60%;height:110px;float:left}
+        .left .bottom{width:100%;height:30px;line-height:30px;position:absolute;bottom:0;background:rgba(0, 0, 0, .3);font-size:14px;text-align: center}
+        .session{margin:0;font-size:14px;color:#999;}
+        .name{font-size:18px;}
+        .change{width:80px;height:30px;line-height:30px;color:#fff;background: #0095DE;border-radius:5px;font-size:16px;text-align: center;}
+    </style>
+</head>
+<body>
+    <div class="head">
+        <a href="javascript:;" onclick="javascript :history.back(-1);" class="fa fa-angle-left"></a>
+        <span>厨艺大赛智慧评分系统</span>
+    </div>
+    <div class="info">
+        <img src="img/1.jpg" alt="">
+        <span>&nbsp;&nbsp;编号员：001号</span>
+        <a href="team.html"><span class="team">团体赛</span></a>
+    </div>
+    <div class="order">
+        <form action="">
+            <!--    照片添加    -->
+		        <div class="z_photo">
+                        <div class="z_file">
+                            <input type="file"  name="imgfile" id="file" value="" accept="image/*" multiple onchange="imgChange('z_photo','z_file');" />
+            
+                        </div>
+            
+                    </div>
+            
+                    <!--遮罩层-->
+                    <div class="z_mask">
+                        <!--弹出框-->
+                        <div class="z_alert">
+                            <p style="margin:-7px">确定要删除这张图片吗？</p >
+                            <p>
+                                <span class="z_cancel">取消</span>
+                                <span class="z_sure">确定</span>
+                            </p >
+                        </div>
+                    </div>
+                    <input type="text" placeholder="请输入菜品名称">
+                    <select name="" id="">
+                        <option value="">选择所在单位</option>
+                        <option value="">安康工务段</option>
+                        <option value="">工务机械段</option>
+                    </select>
+                    <select name="" id="" class="sel1">
+                        <option value="">请选择场次</option>
+                        <option value="">2017/12/04 05场</option>
+                        <option value="">2017/12/04 06场</option>
+                    </select>
+                    <select name="" id="" class="sel2">
+                        <option value="">请选择操作区</option>
+                        <option value="">01区</option>
+                        <option value="">02区</option>
+                    </select>
+                    <select id="">
+                        <option value="">张三</option>
+                        <option value="">李四</option>
+                        <option value="">王五</option>
+                    </select>
+                    <input type="submit"  class="sub" value="生成编号">
+        </form>
+    </div>
+        <div class="container">
+            <div class="list">
+                <div class="left">
+                    <div class="bottom">08219</div>
+                </div>
+                <div class="right">
+                    <p class="session">2017/12/04 05场01区</p>
+                    <p class="name">燕黄珍品灌汤狮子头</p>
+                    <a href="change.html"><div class="change">修改</div></a>
+                </div>
+            </div>
+            <div class="list">
+                    <div class="left">
+                        <div class="bottom">08219</div>
+                    </div>
+                    <div class="right">
+                        <p class="session">2017/12/04 05场01区</p>
+                        <p class="name">燕黄珍品灌汤狮子头</p>
+                       <a href="change.html"><div class="change">修改</div></a>
+                    </div>
+                </div>
+        </div>
+        <!-- <div class="footer">
+                <div>
+                    <i class="fa fa-car"></i>
+                    <p>评委</p>
+                </div>
+                
+                <div class="active">
+                    <i class="fa fa-cny"></i>
+                    <p>场外裁判</p>
+                </div>
+                <div>
+                    <i class="fa fa-user-o"></i>
+                    <p>裁判长</p>
+                </div>
+            </div> -->
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/ajaxfileupload.js"></script>
+    <script type="text/javascript">
+        var j=0;
+        var s=[];
+       //px转换为rem
+       (function(doc, win) {
+           var docEl = doc.documentElement,
+               resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+               recalc = function() {
+                   var clientWidth = docEl.clientWidth;
+                   if (!clientWidth) return;
+                   if (clientWidth >= 640) {
+                       docEl.style.fontSize = '100px';
+                   } else {
+                       docEl.style.fontSize = 100 * (clientWidth / 640) + 'px';
+                   }
+               };
+
+           if (!doc.addEventListener) return;
+           win.addEventListener(resizeEvt, recalc, false);
+           doc.addEventListener('DOMContentLoaded', recalc, false);
+       })(document, window);
+
+       function imgChange(obj1, obj2) {
+           //获取点击的文本框
+           var file = document.getElementById("file");
+           //存放图片的父级元素
+           var imgContainer = document.getElementsByClassName(obj1)[0];
+           //获取的图片文件
+           var fileList = file.files;
+           //文本框的父级元素
+           var input = document.getElementsByClassName(obj2)[0];
+           var imgArr = [];
+           if((j+fileList.length)<=6){
+               console.log(j);
+               //遍历获取到得图片文件
+               for (var i = 0; i < fileList.length; i++) {
+                   var imgUrl = window.URL.createObjectURL(file.files[i]);
+                   imgArr.push(imgUrl);
+                   var img = document.createElement("img");
+                   img.setAttribute("src", imgArr[i]);
+                   var imgAdd = document.createElement("div");
+                   imgAdd.setAttribute("id", i+1);
+                   imgAdd.setAttribute("class", "z_addImg");
+                   imgAdd.appendChild(img);
+                   
+                   $('.z_photo').html(imgAdd);                
+               };
+               $.ajaxFileUpload({
+                   url: '/Traina/uploadImg1', //用于文件上传的服务器端请求地址
+                   type: 'post',     
+                   secureuri: false, //是否需要安全协议，一般设置为false
+	                fileElementId: 'file', //文件上传域的ID
+	                dataType: 'json', //返回值类型 一般设置为json
+	                success: function(data) //服务器成功响应处理函数
+	                {
+	                	console.log(data);
+	    		 			//这里是成功后返回的数据,可以返回保存服务器的多张图片的url，然后展示到页面上
+	    		 			var bb=s.length
+	    					 for(var i=0;i<data.length;i++){
+	    						j++;  
+	    						//判断，将删除的位置补上
+	    						 if(i<bb){
+	    							 $("#image"+s[i]).val(data[i]);
+	    							 
+	    						 }else{
+	    							 //添加图片路径进input
+	    							$(".photo").append("<input type='hidden' id='image"+j+"' value='"+data[i]+"' name='image"+j+"' />");
+	    						 }
+	    			         }
+	    		 			//删除数组中的元素
+	    					 s.splice(0,data.length);
+	                }
+	            
+	                });
+            }else{
+            	alert("最多上传6张")
+            	 
+            }
+            imgRemove();
+        };
+
+        function imgRemove() {
+            var imgList = document.getElementsByClassName("z_addImg");
+            var mask = document.getElementsByClassName("z_mask")[0];
+            var cancel = document.getElementsByClassName("z_cancel")[0];
+            var sure = document.getElementsByClassName("z_sure")[0];
+            for (var k = 0; k < imgList.length; k++) {
+                imgList[k].index = k;
+                imgList[k].onclick = function() {
+                    var t = this;
+                    mask.style.display = "block";
+                    cancel.onclick = function() {
+                        mask.style.display = "none";                        
+                    };
+                    sure.onclick = function() {
+                        mask.style.display = "none";
+                        t.style.display = "none";
+                        var aa=$(t).attr("id");
+                         s.push(aa);
+                        //console.log("K值："+s);
+                        $("#image"+aa).val("");
+                        j--;
+                        //console.log("j值"+j);
+                    };
+                    
+                                    }
+                                };
+                            };
+                    
+</script>
+
+</body>
+</html>
